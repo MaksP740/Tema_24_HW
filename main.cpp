@@ -347,18 +347,77 @@ int main() {
 
     //=============== [ Task 19 ] ===================
 
-    ifstream fin1("f1.txt");
-    ifstream fin2("f2.txt");
-
-    if (fin1.is_open() && fin2.is_open()) {
-
-
-    }
+    // ifstream fin1("f1.txt");
+    // ifstream fin2("f2.txt");
+    //
+    // if (!fin1.is_open() || !fin2.is_open()) {
+    //     cout << "Файл не відкрився!" << endl;
+    //     return 1;
+    // }
+    // else {
+    //     string slovo;
+    //     string slovo1;
+    //     string slovo2;
+    //     fin2 >> slovo1 >> slovo2;
+    //     ofstream recfile("result19.txt");
+    //     while (getline(fin1, slovo)) {
+    //         for (int i = 0; i < slovo.length(); i++) {
+    //             int pos = slovo.find(slovo1, i);
+    //             if (pos != -1) {
+    //                 slovo.replace(pos, slovo1.length(), slovo2);
+    //             }
+    //         }
+    //         recfile << slovo << endl;
+    //     }
+    //     fin1.close();
+    //     fin2.close();
+    //     recfile.close();
+    //     cout << "Файл успішно збережено!";
+    // }
 
 
     //=============== [ Task 20 ] ===================
 
+    ifstream file("f.txt");
+    ofstream recfile("result20.txt");
+    if (!file.is_open() || !recfile.is_open()) {
+        cout << "Файл не відкрився!" << endl;
+        return 1;
+    }
 
+    int choice;
+    cout << "Оберіть формат:\n";
+    cout << "1 - Ім'я По батькові Прізвище\n";
+    cout << "2 - Прізвище І.П.\n";
+    cout << "Зробіть вибір: ";
+    cin >> choice;
+
+    if (choice != 1 && choice != 2) {
+        cout << "Не вірний вибір!" << endl;
+        return 1;
+    }
+    string surname, name, patronymic;
+    while (file >> surname >> name >> patronymic) {
+        switch (choice) {
+            case 1: {
+                recfile << name << " " << patronymic << " " << surname << endl;
+                break;
+            }
+            case 2: {
+                recfile << surname << " ";
+                if (!name.empty()) {
+                    recfile << name[0] << ". ";
+                }
+                if (!patronymic.empty()) {
+                    recfile << patronymic[0] << ". ";
+                   recfile << endl;
+                }
+            }
+        }
+    }
+    file.close();
+    recfile.close();
+    cout << "Файл успішно збережено!";
 
 
     return 0;
